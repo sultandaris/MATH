@@ -43,7 +43,7 @@ class Matrix:
                 
                 elemen.append(final)
             newM.append(elemen)
-        print(newM)
+        return Matrix(newM)
                         
 kotak = Matrix([
     [1,2],
@@ -53,5 +53,5 @@ kotak = Matrix([
 kotak.show()
 kotakT = kotak.transpose()
 kotakT.show()
-kotak.show()
-kotak.multiply(kotakT)
+kotakM = kotak.multiply(kotakT)
+kotakM.show()
