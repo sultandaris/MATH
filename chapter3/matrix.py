@@ -32,20 +32,26 @@ class Matrix:
             print("Silahkan masukkan matrix dengan ukuran yang sama untuk dijumlahkan \n")
     
     def multiply(self, val):
-        result = []
-        for()
-
-       
+        newM = []
+        for i in range(self.row):
+            elemen = []
+            for j in range(val.column):
+                final = 0
+                
+                for l in range(self.column):
+                    final = final + (self.matrix[i][l] * val.matrix[l][j])
+                
+                elemen.append(final)
+            newM.append(elemen)
+        print(newM)
+                        
 kotak = Matrix([
-    [2,3,5],
-    [5,6,7]
+    [1,2],
+    [3,4]
 ])
 
 kotak.show()
 kotakT = kotak.transpose()
 kotakT.show()
-kotak.add(kotakT)
 kotak.show()
-
-print(kotak.row)
-print(kotak.column)
+kotak.multiply(kotakT)
