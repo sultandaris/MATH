@@ -18,19 +18,34 @@ class Matrix:
                 rows.append(self.matrix[j][i])
             result.append(rows)
 
-        print("---",self.row,self.column)
         return Matrix(result)
 
     def add(self, val):
         if(self.row == val.row and self.column == self.row):
-            result
+            for i in range(self.row):
+                for j in range(self.column):
+                    self.matrix[i][j] = self.matrix[i][j] + val.matrix[i][j]
+        else:
+            print("Matrix tidak bisa dijumlahkan karena ukuran berbeda!!! \n")
+            print("Ukuran matrix awal : ", self.row, "x", self.column)
+            print("Ukuran matrix input : ", val.row, "x", val.column)
+            print("Silahkan masukkan matrix dengan ukuran yang sama untuk dijumlahkan \n")
+    
+    def multiply(self, val):
+        result = []
+        for()
+
        
 kotak = Matrix([
-    [2,3,3],
-    [5,6,9]
+    [2,3,5],
+    [5,6,7]
 ])
 
 kotak.show()
 kotakT = kotak.transpose()
-kotak.show()
+kotakT.show()
 kotak.add(kotakT)
+kotak.show()
+
+print(kotak.row)
+print(kotak.column)
