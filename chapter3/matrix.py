@@ -32,19 +32,30 @@ class Matrix:
             print("Silahkan masukkan matrix dengan ukuran yang sama untuk dijumlahkan \n")
     
     def multiply(self, val):
-        newM = []
+        if (self.row == val.column):
+            newM = []
+            for i in range(self.row):
+                elemen = []
+                for j in range(val.column):
+                    final = 0
+                
+                    for l in range(self.column):
+                        final = final + (self.matrix[i][l] * val.matrix[l][j])
+                
+                    elemen.append(final)
+                newM.append(elemen)
+            return Matrix(newM)
+        else:
+            print("gabisa")
+        
+    def determinant(self):
         for i in range(self.row):
-            elemen = []
-            for j in range(val.column):
-                final = 0
+            for j in range(self.column):
                 
-                for l in range(self.column):
-                    final = final + (self.matrix[i][l] * val.matrix[l][j])
-                
-                elemen.append(final)
-            newM.append(elemen)
-        return Matrix(newM)
-                        
+        
+              
+    
+                  
 kotak = Matrix([
     [1,2],
     [3,4]
