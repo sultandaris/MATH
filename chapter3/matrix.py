@@ -47,18 +47,44 @@ class Matrix:
             return Matrix(newM)
         else:
             print("gabisa")
-        
-    def determinant(self):
-        for i in range(self.row):
-            for j in range(self.column):
                 
-        
-              
+    def saring(self,b_row,b_column):
+        list = []
+        for i in range(self.row):
+            if(i == b_row):
+                i += 1
+                continue
+            rows = []
+            for j in range(self.column):
+                if(i == b_row or j == b_column):
+                    continue
+                else:
+                    rows.append(self.matrix[i][j])
+            list.append(rows)
+        return Matrix(list)
     
-                  
+    def determinant(self):
+        if(self.row == self.column):
+            if(self.row == 1):
+                return self.matrix[0][0]
+            else:
+                total = 0
+                for i in range(1):
+                    for j in range(self.column):
+                        if((i + j) % 2 == 0):
+                            baru = self.saring(i,j)
+                            total += self.matrix[i][j] * baru.determinant()                        
+                        else:
+                            baru = self.saring(i,j)
+                            total -= self.matrix[i][j] * baru.determinant()                        
+                return total
+        else:
+            print("tidak bisa dihitung", self.row, "x", self.column)
+
 kotak = Matrix([
-    [1,2],
-    [3,4]
+    [1,2,3],
+    [4,5,6],
+    [7,8,9]
 ])
 
 kotak.show()
@@ -66,3 +92,4 @@ kotakT = kotak.transpose()
 kotakT.show()
 kotakM = kotak.multiply(kotakT)
 kotakM.show()
+print(kotak.determinant())
