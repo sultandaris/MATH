@@ -1,1 +1,3 @@
 refresh lagi kenapa self itu ada lewat bahasa C. ( )
+kenapa REF dan RREF aturannya begitu? 
+apa penurunannya dan signifikansi tiap aturan ? ( )
