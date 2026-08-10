@@ -114,12 +114,15 @@ class Matrix:
     def RREF(self):
         row = 0
         for column in range(self.column):
-            kolom_pivot = self.cekNol(row,column)
-            if(kolom_pivot != row):
-                self.tukarBaris(kolom_pivot,row)
-            self.pembagian(row,column)
-            self.pengurangan(row,column)
-            row = row + 1
+            if(column < self.row):
+                kolom_pivot = self.cekNol(row,column)
+                if(kolom_pivot != row):
+                    self.tukarBaris(kolom_pivot,row)
+                self.pembagian(row,column)
+                self.pengurangan(row,column)
+                row = row + 1
+            else:
+                break
 
     def identitas(self):
         result = []
@@ -133,10 +136,21 @@ class Matrix:
             result.append(rows)
         return Matrix(result)
 
-    def invers(self):
-        identitas = self.identitas()
-        ##########
+    def augment(self,val):
+        result = []
+        aug_column = self.column + val.column
+        aug_row = self.row + val.column
+        for i in range(self.column):
+            rows = []
+            for j in range(self.column):
+                rows.append(self.matrix[i][j])
+            for j in range(val.column):
+                rows.append(val.matrix[i][j])
+            result.append(rows)
+        return Matrix(result)
 
+    def inversRREF():
+        
 kotak = Matrix([
     [1,2,3],
     [4,5,6],
@@ -149,4 +163,9 @@ kotakT.show()
 kotakM = kotak.multiply(kotakT)
 kotakM.show()
 print(kotak.determinant())
-identitas = kotak.invers()
+identitas = kotak.identitas()
+identitas.show()
+aug = kotak.augment(identitas)
+aug.show()
+aug.RREF()
+aug.show()
