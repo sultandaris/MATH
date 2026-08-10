@@ -3,7 +3,7 @@ class Matrix:
         self.matrix = x
         self.column = len(self.matrix[0])
         self.row = len(self.matrix)
-    
+
     def show(self):
         column = len(self.matrix)
         for i in range(column):
@@ -30,7 +30,7 @@ class Matrix:
             print("Ukuran matrix awal : ", self.row, "x", self.column)
             print("Ukuran matrix input : ", val.row, "x", val.column)
             print("Silahkan masukkan matrix dengan ukuran yang sama untuk dijumlahkan \n")
-    
+
     def multiply(self, val):
         if (self.row == val.column):
             newM = []
@@ -38,16 +38,15 @@ class Matrix:
                 elemen = []
                 for j in range(val.column):
                     final = 0
-                
                     for l in range(self.column):
                         final = final + (self.matrix[i][l] * val.matrix[l][j])
-                
                     elemen.append(final)
                 newM.append(elemen)
             return Matrix(newM)
         else:
             print("gabisa")
-                
+            return Matrix(self.matrix)
+
     def saring(self,b_row,b_column):
         list = []
         for i in range(self.row):
@@ -62,7 +61,7 @@ class Matrix:
                     rows.append(self.matrix[i][j])
             list.append(rows)
         return Matrix(list)
-    
+
     def determinant(self):
         if(self.row == self.column):
             if(self.row == 1):
@@ -73,18 +72,58 @@ class Matrix:
                     for j in range(self.column):
                         if((i + j) % 2 == 0):
                             baru = self.saring(i,j)
-                            total += self.matrix[i][j] * baru.determinant()                        
+                            total += self.matrix[i][j] * baru.determinant()
                         else:
                             baru = self.saring(i,j)
-                            total -= self.matrix[i][j] * baru.determinant()                        
+                            total -= self.matrix[i][j] * baru.determinant()
                 return total
         else:
             print("tidak bisa dihitung", self.row, "x", self.column)
 
+    def cekNol(self,row,column):
+        val = row
+        while val < self.row:
+            if(self.matrix[val][column] != 0):
+                return val
+            val+=1
+        return row
+
+    def tukarBaris(self,pivot,row):
+        salinan = []
+        for j in range(self.column):
+            salinan.append(self.matrix[row][j])
+            self.matrix[row][j] = self.matrix[pivot][j]
+            self.matrix[pivot][j] = salinan[j]
+            j+=1
+
+    def pembagian(self,row,column):
+        pembagi = self.matrix[row][column]
+        if(pembagi != 0):
+            for j in range(self.column):
+                self.matrix[row][j] = self.matrix[row][j] / pembagi
+
+    def pengurangan(self,row,column):
+        for i in range(self.row):
+            faktor = self.matrix[i][column]
+            for j in range(self.column):
+                if(i != row):
+                    self.matrix[i][j] = self.matrix[i][j] - (faktor * self.matrix[row][j])
+                else:
+                    break
+
+    def REF(self):
+        row = 0
+        for column in range(self.column):
+            kolom_pivot = self.cekNol(row,column)
+            if(kolom_pivot != row):
+                self.tukarBaris(kolom_pivot,row)
+            self.pembagian(row,column)
+            self.pengurangan(row,column)
+            row = row + 1
+
 kotak = Matrix([
-    [1,2,3],
-    [4,5,6],
-    [7,8,9]
+    [1,2],
+    [3,4]
 ])
 
 kotak.show()
@@ -93,3 +132,5 @@ kotakT.show()
 kotakM = kotak.multiply(kotakT)
 kotakM.show()
 print(kotak.determinant())
+kotak.REF()
+kotak.show()
