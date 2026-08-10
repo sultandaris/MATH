@@ -111,7 +111,7 @@ class Matrix:
                 else:
                     break
 
-    def REF(self):
+    def RREF(self):
         row = 0
         for column in range(self.column):
             kolom_pivot = self.cekNol(row,column)
@@ -121,9 +121,26 @@ class Matrix:
             self.pengurangan(row,column)
             row = row + 1
 
+    def identitas(self):
+        result = []
+        for i in range(self.column):
+            rows = []
+            for j in range(self.row):
+                if(i == j):
+                    rows.append(1)
+                else:
+                    rows.append(0)
+            result.append(rows)
+        return Matrix(result)
+
+    def invers(self):
+        identitas = self.identitas()
+        ##########
+
 kotak = Matrix([
-    [1,2],
-    [3,4]
+    [1,2,3],
+    [4,5,6],
+    [7,8,9]
 ])
 
 kotak.show()
@@ -132,5 +149,4 @@ kotakT.show()
 kotakM = kotak.multiply(kotakT)
 kotakM.show()
 print(kotak.determinant())
-kotak.REF()
-kotak.show()
+identitas = kotak.invers()
