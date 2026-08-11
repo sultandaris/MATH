@@ -149,23 +149,36 @@ class Matrix:
             result.append(rows)
         return Matrix(result)
 
-    def inversRREF():
+    def inversRREF(self):
+        id = self.identitas()
+        aug = self.augment(id)
+        aug.RREF()
+        for i in range(self.row):
+            for j in range(self.column):
+                self.matrix[i][j] = aug.matrix[i][j + self.column]
+
+    def determinantRREF(self):
+        det = 1
+        row = 0
+        for column in range(self.column):
+            if(column < self.row):
+                kolom_pivot = self.cekNol(row,column)
+                if(kolom_pivot != row):
+                    det = det * -1
+                    self.tukarBaris(kolom_pivot,row)
+                det = det * self.matrix[row][column]
+                self.pembagian(row,column)
+                self.pengurangan(row,column)
+                row = row + 1
+            else:
+                break
+        return det
+       
         
 kotak = Matrix([
-    [1,2,3],
-    [4,5,6],
-    [7,8,9]
+    [1,4],
+    [3,4]
 ])
 
 kotak.show()
-kotakT = kotak.transpose()
-kotakT.show()
-kotakM = kotak.multiply(kotakT)
-kotakM.show()
-print(kotak.determinant())
-identitas = kotak.identitas()
-identitas.show()
-aug = kotak.augment(identitas)
-aug.show()
-aug.RREF()
-aug.show()
+print(kotak.determinantRREF())
