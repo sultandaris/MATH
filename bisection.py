@@ -7,6 +7,8 @@ def bisection(a,n,p):
              upper = (upper+lower)/2
         else:
              lower = (upper+lower)/2
+        print("upper: ",upper)
+        print("lower: ",lower)
         print(((upper+lower)/2)-lower)
         val =  pow((upper+lower)/2,n) - a
     print("end\n")
